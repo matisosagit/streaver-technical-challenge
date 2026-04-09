@@ -1,55 +1,41 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Post } from "@/types/post";
 import { InputSearch } from "@/components/inputSearch";
-import { get } from "http";
+import useSWR from "swr";
+import { toast } from "sonner";
 
 export default function Posts() {  
+    const [userId, setUserId] = useState<number | null>(null);
+    const fetcher = (url: string) => fetch(url).then(res => res.json());
 
-    const [posts, setPosts] = useState<Post[]>([]);
-
-    const getPosts = async () => {
-        const res = await fetch("/api/get");
-        const data = await res.json();
-        if (!res.ok) {
-            throw new Error("Failed to fetch posts");
-        }else{
-            setPosts(data);
+    const { data: allPosts = [], error: errorAll, isLoading: loadingAll } = useSWR("/api/get", fetcher,{
+        loadingTimeout: 100,
+        onLoadingSlow: () => {
+            toast.warning("bad connction, waiting for response...")
         }
-        console.log(data);
-        return data;
+    });
+    const { data: userPosts = [], error: errorUser, isLoading: loadingUser } = useSWR(userId ? `/api/posts?userId=${userId}` : null, fetcher, {
+        loadingTimeout: 1000,
+        onLoadingSlow: () => {
+            toast.warning("bad connction, waiting for response...")
+        }
+    });
+
+    const posts: Post[] = userId ? userPosts : allPosts;
+
+    if(errorAll || errorUser) {
+        return <div>Failed to load posts</div>
     }
 
-    const getPostsByUserId = async (userId: string) => {
-        const res = await fetch("/api/posts", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ id: userId })
-        });
-        const data = await res.json();
-        if (!res.ok) {
-            throw new Error("Failed to fetch posts by ID");
-        }else{
-            if(data && data.length > 0){
-                setPosts(data);
-            }else{
-                getPosts();
-            }
-        }
-        return data;
-    };
-
-
-    useEffect(() => {
-        getPosts();
-    }, []);
+    if(loadingAll || loadingUser) {
+        return <div>Loading...</div>
+    }
 
     return (
         <main className="w-full h-full flex flex-col gap-4 p-4">
             <div className="flex justify-center">
-                <InputSearch placeholder="Search posts by userId..." onSearch={(query) => getPostsByUserId(query)} />
+                <InputSearch placeholder="Search posts by userId..." onSearch={(query) => setUserId(parseInt(query))} />
             </div>
             <div className="flex flex-wrap gap-4 items-center justify-center">
                 {posts.map((post) => (
