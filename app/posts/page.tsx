@@ -25,13 +25,13 @@ export default function Posts() {
     const fetcher = (url: string) => fetch(url).then(res => res.json());
 
     const { data: allPosts = [], error: errorAll, isLoading: loadingAll } = useSWR("/api/get", fetcher,{
-        loadingTimeout: 2000,
+        loadingTimeout: 3000,
         onLoadingSlow: () => {
             toast.warning("bad connction, waiting for response...")
         }
     });
     const { data: userPosts = [], error: errorUser, isLoading: loadingUser } = useSWR(debouncedSearch ? `/api/getbyid?userId=${debouncedSearch}` : null, fetcher, {
-        loadingTimeout: 2000,
+        loadingTimeout: 3000,
         onLoadingSlow: () => {
             toast.warning("bad connction, waiting for response...")
         }

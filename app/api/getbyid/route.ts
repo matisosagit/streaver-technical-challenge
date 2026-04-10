@@ -1,8 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 
-const link = process.env.NEXT_PUBLIC_API_URL;
-
 export async function GET(req: NextRequest) {
+    const link = process.env.NEXT_PUBLIC_API_URL;
     const id = req.nextUrl.searchParams.get("userId");
 
     if (!link) {

@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Technical Challenge: Posts Management System
 
-## Getting Started
+This project is a technical assessment developed for **Streaver**. It features a real-time post listing system with filtering capabilities, built with modern web technologies.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+* **API Integration:** Fetches and displays data from the required external API.
+* **Search & Filter:** Users can filter posts dynamically by **ID** using a search bar.
+* **Optimized UX:** * Loading states and "Slow connection" warnings (3s timeout).
+    * Real-time toast notifications for errors and connectivity issues.
+* **Responsive Design:** Styled with Tailwind CSS for mobile and desktop support.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+* **Framework:** [Next.js](https://nextjs.org/) (App Router)
+* **Language:** [TypeScript](https://www.typescriptlang.org/) for static typing and code reliability.
+* **Data Fetching:** [SWR](https://swr.vercel.app/) for caching, revalidation, and loading states.
+* **Testing:** [Vitest/Jest](https://vitest.dev/) for unit and component testing.
+* **Notifications:** [Sonner](https://sonner.emilkowal.ski/) for high-quality toast alerts.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧠 Development Process & Learning
 
-## Learn More
+This challenge was a significant learning experience. It was my **first time** working with **Next.js, TypeScript, and SWR**. 
 
-To learn more about Next.js, take a look at the following resources:
+To overcome the learning curve within the deadline:
+1.  **Documentation:** I relied heavily on official documentation to understand the core concepts of each library.
+2.  **AI Tools:** I used **GitHub Copilot** and **Google Gemini** as collaborators to assist with syntax and boilerplate. However, I maintained full control over the project's logic and architecture, ensuring every implementation met the requirements and my own technical standards.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ⚙️ Installation & Setup
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/matisosagit/streaver-technical-challenge.git]
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Set up environment variables:**
+    Create a `.env.local` file in the root and add the required API URL:
+    ```env
+    NEXT_PUBLIC_API_URL=[https://jsonplaceholder.typicode.com/posts]
+    ```
+4.  **Run the project:**
+    ```bash
+    npm run dev
+    ```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+Developed by **Matías Sosa**.
